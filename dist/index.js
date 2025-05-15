@@ -3311,11 +3311,149 @@
     }
   });
 
-  // src/RosettanetWallet/index.ts
-  var RosettanetWallet_exports = {};
-  __export(RosettanetWallet_exports, {
-    RosettanetAccount: () => RosettanetAccount
+  // src/RosettanetWallet/rosettanetConnect.ts
+  var rosettanetConnect_exports = {};
+  __export(rosettanetConnect_exports, {
+    accounts: () => accounts,
+    call: () => call,
+    clientVersion: () => clientVersion,
+    estimateGas: () => estimateGas,
+    gasPrice: () => gasPrice,
+    getBalance: () => getBalance,
+    getBlockByHash: () => getBlockByHash,
+    getBlockByNumber: () => getBlockByNumber,
+    getBlockNumber: () => getBlockNumber,
+    getBlockTransactionCountByHash: () => getBlockTransactionCountByHash,
+    getBlockTransactionCountByNumber: () => getBlockTransactionCountByNumber,
+    getCode: () => getCode,
+    getPermissions: () => getPermissions,
+    getTransactionByHash: () => getTransactionByHash,
+    getTransactionCount: () => getTransactionCount,
+    getTransactionHashByBlockHashAndIndex: () => getTransactionHashByBlockHashAndIndex,
+    getTransactionHashByBlockNumberAndIndex: () => getTransactionHashByBlockNumberAndIndex,
+    getTransactionReceipt: () => getTransactionReceipt,
+    personalSign: () => personalSign,
+    requestAccounts: () => requestAccounts,
+    requestChainId: () => requestChainId,
+    sendTransaction: () => sendTransaction,
+    signMessage: () => signMessage,
+    switchRosettanetChain: () => switchRosettanetChain,
+    syncing: () => syncing,
+    watchAsset: () => watchAsset
   });
+  function requestAccounts(ewo) {
+    return ewo.request({ method: "eth_requestAccounts" });
+  }
+  __name(requestAccounts, "requestAccounts");
+  function watchAsset(ewo, asset) {
+    return ewo.request({ method: "wallet_watchAsset", params: [asset] });
+  }
+  __name(watchAsset, "watchAsset");
+  function requestChainId(ewo) {
+    return ewo.request({ method: "eth_chainId" });
+  }
+  __name(requestChainId, "requestChainId");
+  function sendTransaction(ewo, tx) {
+    return ewo.request({ method: "eth_sendTransaction", params: [tx] });
+  }
+  __name(sendTransaction, "sendTransaction");
+  function switchRosettanetChain(ewo, chainId) {
+    return ewo.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId }]
+    });
+  }
+  __name(switchRosettanetChain, "switchRosettanetChain");
+  function getPermissions(ewo) {
+    return ewo.request({ method: "wallet_getPermissions" });
+  }
+  __name(getPermissions, "getPermissions");
+  function personalSign(ewo, message, address) {
+    return ewo.request({ method: "personal_sign", params: [message, address] });
+  }
+  __name(personalSign, "personalSign");
+  function accounts(ewo) {
+    return ewo.request({ method: "eth_accounts" });
+  }
+  __name(accounts, "accounts");
+  function clientVersion(ewo) {
+    return ewo.request({ method: "web3_clientVersion" });
+  }
+  __name(clientVersion, "clientVersion");
+  function getBlockNumber(ewo) {
+    return ewo.request({ method: "eth_blockNumber" });
+  }
+  __name(getBlockNumber, "getBlockNumber");
+  function call(ewo, tx) {
+    return ewo.request({ method: "eth_call", params: [tx] });
+  }
+  __name(call, "call");
+  function estimateGas(ewo, tx) {
+    return ewo.request({ method: "eth_estimateGas", params: [tx] });
+  }
+  __name(estimateGas, "estimateGas");
+  function gasPrice(ewo) {
+    return ewo.request({ method: "eth_gasPrice" });
+  }
+  __name(gasPrice, "gasPrice");
+  function getBalance(ewo, address, block = "latest") {
+    return ewo.request({ method: "eth_getBalance", params: [address, block] });
+  }
+  __name(getBalance, "getBalance");
+  function getBlockByHash(ewo, blockHash, hydratedTx = false) {
+    return ewo.request({ method: "eth_getBlockByHash", params: [blockHash, hydratedTx] });
+  }
+  __name(getBlockByHash, "getBlockByHash");
+  function getBlockByNumber(ewo, blockNumber, hydratedTx = false) {
+    return ewo.request({ method: "eth_getBlockByNumber", params: [blockNumber, hydratedTx] });
+  }
+  __name(getBlockByNumber, "getBlockByNumber");
+  function getBlockTransactionCountByHash(ewo, blockHash) {
+    return ewo.request({ method: "eth_getBlockTransactionCountByHash", params: [blockHash] });
+  }
+  __name(getBlockTransactionCountByHash, "getBlockTransactionCountByHash");
+  function getBlockTransactionCountByNumber(ewo, blockNumber) {
+    return ewo.request({ method: "eth_getBlockTransactionCountByNumber", params: [blockNumber] });
+  }
+  __name(getBlockTransactionCountByNumber, "getBlockTransactionCountByNumber");
+  function getCode(ewo, address, block = "latest") {
+    return ewo.request({ method: "eth_getCode", params: [address, block] });
+  }
+  __name(getCode, "getCode");
+  function getTransactionHashByBlockHashAndIndex(ewo, blockHash, index) {
+    return ewo.request({
+      method: "eth_getTransactionByBlockHashAndIndex",
+      params: [blockHash, index]
+    });
+  }
+  __name(getTransactionHashByBlockHashAndIndex, "getTransactionHashByBlockHashAndIndex");
+  function getTransactionHashByBlockNumberAndIndex(ewo, blockNumber, index) {
+    return ewo.request({
+      method: "eth_getTransactionByBlockNumberAndIndex",
+      params: [blockNumber, index]
+    });
+  }
+  __name(getTransactionHashByBlockNumberAndIndex, "getTransactionHashByBlockNumberAndIndex");
+  function getTransactionByHash(ewo, txHash) {
+    return ewo.request({ method: "eth_getTransactionByHash", params: [txHash] });
+  }
+  __name(getTransactionByHash, "getTransactionByHash");
+  function getTransactionCount(ewo, address, block = "latest") {
+    return ewo.request({ method: "eth_getTransactionCount", params: [address, block] });
+  }
+  __name(getTransactionCount, "getTransactionCount");
+  function getTransactionReceipt(ewo, txHash) {
+    return ewo.request({ method: "eth_getTransactionReceipt", params: [txHash] });
+  }
+  __name(getTransactionReceipt, "getTransactionReceipt");
+  function syncing(ewo) {
+    return ewo.request({ method: "eth_syncing" });
+  }
+  __name(syncing, "syncing");
+  function signMessage(ewo, message, address) {
+    return ewo.request({ method: "eth_signTypedData_v4", params: [address, message] });
+  }
+  __name(signMessage, "signMessage");
 
   // node_modules/rosettanet/dist/index.mjs
   function padLeftTo32Bytes(input) {
@@ -3663,113 +3801,6 @@ ${parameter}`);
     return `0x${result}`;
   }
   __name(wireEncodeByteArray, "wireEncodeByteArray");
-
-  // src/RosettanetWallet/rosettanetConnect.ts
-  function requestAccounts(ewo) {
-    return ewo.request({ method: "eth_requestAccounts" });
-  }
-  __name(requestAccounts, "requestAccounts");
-  function watchAsset(ewo, asset) {
-    return ewo.request({ method: "wallet_watchAsset", params: [asset] });
-  }
-  __name(watchAsset, "watchAsset");
-  function requestChainId(ewo) {
-    return ewo.request({ method: "eth_chainId" });
-  }
-  __name(requestChainId, "requestChainId");
-  function sendTransaction(ewo, tx) {
-    return ewo.request({ method: "eth_sendTransaction", params: [tx] });
-  }
-  __name(sendTransaction, "sendTransaction");
-  function switchRosettanetChain(ewo, chainId) {
-    return ewo.request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId }]
-    });
-  }
-  __name(switchRosettanetChain, "switchRosettanetChain");
-  function getPermissions(ewo) {
-    return ewo.request({ method: "wallet_getPermissions" });
-  }
-  __name(getPermissions, "getPermissions");
-  function personalSign(ewo, message, address) {
-    return ewo.request({ method: "personal_sign", params: [message, address] });
-  }
-  __name(personalSign, "personalSign");
-  function accounts(ewo) {
-    return ewo.request({ method: "eth_accounts" });
-  }
-  __name(accounts, "accounts");
-  function getBlockNumber(ewo) {
-    return ewo.request({ method: "eth_blockNumber" });
-  }
-  __name(getBlockNumber, "getBlockNumber");
-  function call(ewo, tx) {
-    return ewo.request({ method: "eth_call", params: [tx] });
-  }
-  __name(call, "call");
-  function estimateGas(ewo, tx) {
-    return ewo.request({ method: "eth_estimateGas", params: [tx] });
-  }
-  __name(estimateGas, "estimateGas");
-  function gasPrice(ewo) {
-    return ewo.request({ method: "eth_gasPrice" });
-  }
-  __name(gasPrice, "gasPrice");
-  function getBalance(ewo, address, block = "latest") {
-    return ewo.request({ method: "eth_getBalance", params: [address, block] });
-  }
-  __name(getBalance, "getBalance");
-  function getBlockByHash(ewo, blockHash, hydratedTx = false) {
-    return ewo.request({ method: "eth_getBlockByHash", params: [blockHash, hydratedTx] });
-  }
-  __name(getBlockByHash, "getBlockByHash");
-  function getBlockByNumber(ewo, blockNumber, hydratedTx = false) {
-    return ewo.request({ method: "eth_getBlockByNumber", params: [blockNumber, hydratedTx] });
-  }
-  __name(getBlockByNumber, "getBlockByNumber");
-  function getBlockTransactionCountByHash(ewo, blockHash) {
-    return ewo.request({ method: "eth_getBlockTransactionCountByHash", params: [blockHash] });
-  }
-  __name(getBlockTransactionCountByHash, "getBlockTransactionCountByHash");
-  function getBlockTransactionCountByNumber(ewo, blockNumber) {
-    return ewo.request({ method: "eth_getBlockTransactionCountByNumber", params: [blockNumber] });
-  }
-  __name(getBlockTransactionCountByNumber, "getBlockTransactionCountByNumber");
-  function getCode(ewo, address, block = "latest") {
-    return ewo.request({ method: "eth_getCode", params: [address, block] });
-  }
-  __name(getCode, "getCode");
-  function getTransactionHashByBlockHashAndIndex(ewo, blockHash, index) {
-    return ewo.request({
-      method: "eth_getTransactionByBlockHashAndIndex",
-      params: [blockHash, index]
-    });
-  }
-  __name(getTransactionHashByBlockHashAndIndex, "getTransactionHashByBlockHashAndIndex");
-  function getTransactionHashByBlockNumberAndIndex(ewo, blockNumber, index) {
-    return ewo.request({
-      method: "eth_getTransactionByBlockNumberAndIndex",
-      params: [blockNumber, index]
-    });
-  }
-  __name(getTransactionHashByBlockNumberAndIndex, "getTransactionHashByBlockNumberAndIndex");
-  function getTransactionByHash(ewo, txHash) {
-    return ewo.request({ method: "eth_getTransactionByHash", params: [txHash] });
-  }
-  __name(getTransactionByHash, "getTransactionByHash");
-  function getTransactionCount(ewo, address, block = "latest") {
-    return ewo.request({ method: "eth_getTransactionCount", params: [address, block] });
-  }
-  __name(getTransactionCount, "getTransactionCount");
-  function getTransactionReceipt(ewo, txHash) {
-    return ewo.request({ method: "eth_getTransactionReceipt", params: [txHash] });
-  }
-  __name(getTransactionReceipt, "getTransactionReceipt");
-  function signMessage(ewo, message, address) {
-    return ewo.request({ method: "eth_signTypedData_v4", params: [address, message] });
-  }
-  __name(signMessage, "signMessage");
 
   // node_modules/starknet/node_modules/starknet-types-07/dist/esm/index.js
   var esm_exports = {};

@@ -1,4 +1,4 @@
-import { RequestFn, WalletEventListener, WatchAssetParameters, TypedData } from '@starknet-io/types-js';
+import { RequestFn, WalletEventListener, WatchAssetParameters, ChainId, Permission, TypedData } from '@starknet-io/types-js';
 import { Account, AccountInterface, ProviderOptions, ProviderInterface, CairoVersion, ArraySignatureType, AllowArray, Call } from 'starknet';
 
 /**
@@ -84,6 +84,70 @@ interface EthereumWindowObject {
     name: string;
     icon: string;
     version: '1.0.0';
+}
+declare function requestAccounts(ewo: EthereumWindowObject): Promise<string[]>;
+declare function watchAsset(ewo: EthereumWindowObject, asset: WatchAssetParameters): Promise<boolean>;
+declare function requestChainId(ewo: EthereumWindowObject): Promise<string>;
+declare function sendTransaction(ewo: EthereumWindowObject, tx: TX_REQUEST): Promise<string>;
+declare function switchRosettanetChain(ewo: EthereumWindowObject, chainId: ChainId): Promise<string>;
+declare function getPermissions(ewo: EthereumWindowObject): Promise<Permission[]>;
+declare function personalSign(ewo: EthereumWindowObject, message: string, address: string): Promise<string>;
+declare function accounts(ewo: EthereumWindowObject): Promise<string[]>;
+declare function clientVersion(ewo: EthereumWindowObject): Promise<string>;
+declare function getBlockNumber(ewo: EthereumWindowObject): Promise<string>;
+declare function call(ewo: EthereumWindowObject, tx: TX_REQUEST): Promise<string>;
+declare function estimateGas(ewo: EthereumWindowObject, tx: TX_REQUEST): Promise<string>;
+declare function gasPrice(ewo: EthereumWindowObject): Promise<string>;
+declare function getBalance(ewo: EthereumWindowObject, address: string, block?: BLOCK_HASH | BLOCK_NUMBER | BLOCK_TAG): Promise<string>;
+declare function getBlockByHash(ewo: EthereumWindowObject, blockHash: BLOCK_HASH, hydratedTx?: boolean): Promise<string>;
+declare function getBlockByNumber(ewo: EthereumWindowObject, blockNumber: BLOCK_NUMBER | BLOCK_TAG, hydratedTx?: boolean): Promise<string>;
+declare function getBlockTransactionCountByHash(ewo: EthereumWindowObject, blockHash: BLOCK_HASH): Promise<string>;
+declare function getBlockTransactionCountByNumber(ewo: EthereumWindowObject, blockNumber: BLOCK_NUMBER | BLOCK_TAG): Promise<string>;
+declare function getCode(ewo: EthereumWindowObject, address: string, block?: BLOCK_HASH | BLOCK_NUMBER | BLOCK_TAG): Promise<string>;
+declare function getTransactionHashByBlockHashAndIndex(ewo: EthereumWindowObject, blockHash: BLOCK_HASH, index: string): Promise<string>;
+declare function getTransactionHashByBlockNumberAndIndex(ewo: EthereumWindowObject, blockNumber: BLOCK_NUMBER | BLOCK_TAG, index: string): Promise<string>;
+declare function getTransactionByHash(ewo: EthereumWindowObject, txHash: TXN_HASH): Promise<string>;
+declare function getTransactionCount(ewo: EthereumWindowObject, address: string, block?: BLOCK_HASH | BLOCK_NUMBER | BLOCK_TAG): Promise<string>;
+declare function getTransactionReceipt(ewo: EthereumWindowObject, txHash: TXN_HASH): Promise<string>;
+declare function syncing(ewo: EthereumWindowObject): Promise<string>;
+/**
+ * Sign typed data using the wallet.
+ * @param ewo wallet window object to request the signature.
+ * @param message The typed data to sign.
+ * @param address The wallet address to sign.
+ * @returns Signatures as strings.
+ */
+declare function signMessage(ewo: EthereumWindowObject, message: TypedData, address: string): Promise<string>;
+
+type rosettanetConnect_EthereumWindowObject = EthereumWindowObject;
+declare const rosettanetConnect_accounts: typeof accounts;
+declare const rosettanetConnect_call: typeof call;
+declare const rosettanetConnect_clientVersion: typeof clientVersion;
+declare const rosettanetConnect_estimateGas: typeof estimateGas;
+declare const rosettanetConnect_gasPrice: typeof gasPrice;
+declare const rosettanetConnect_getBalance: typeof getBalance;
+declare const rosettanetConnect_getBlockByHash: typeof getBlockByHash;
+declare const rosettanetConnect_getBlockByNumber: typeof getBlockByNumber;
+declare const rosettanetConnect_getBlockNumber: typeof getBlockNumber;
+declare const rosettanetConnect_getBlockTransactionCountByHash: typeof getBlockTransactionCountByHash;
+declare const rosettanetConnect_getBlockTransactionCountByNumber: typeof getBlockTransactionCountByNumber;
+declare const rosettanetConnect_getCode: typeof getCode;
+declare const rosettanetConnect_getPermissions: typeof getPermissions;
+declare const rosettanetConnect_getTransactionByHash: typeof getTransactionByHash;
+declare const rosettanetConnect_getTransactionCount: typeof getTransactionCount;
+declare const rosettanetConnect_getTransactionHashByBlockHashAndIndex: typeof getTransactionHashByBlockHashAndIndex;
+declare const rosettanetConnect_getTransactionHashByBlockNumberAndIndex: typeof getTransactionHashByBlockNumberAndIndex;
+declare const rosettanetConnect_getTransactionReceipt: typeof getTransactionReceipt;
+declare const rosettanetConnect_personalSign: typeof personalSign;
+declare const rosettanetConnect_requestAccounts: typeof requestAccounts;
+declare const rosettanetConnect_requestChainId: typeof requestChainId;
+declare const rosettanetConnect_sendTransaction: typeof sendTransaction;
+declare const rosettanetConnect_signMessage: typeof signMessage;
+declare const rosettanetConnect_switchRosettanetChain: typeof switchRosettanetChain;
+declare const rosettanetConnect_syncing: typeof syncing;
+declare const rosettanetConnect_watchAsset: typeof watchAsset;
+declare namespace rosettanetConnect {
+  export { type rosettanetConnect_EthereumWindowObject as EthereumWindowObject, rosettanetConnect_accounts as accounts, rosettanetConnect_call as call, rosettanetConnect_clientVersion as clientVersion, rosettanetConnect_estimateGas as estimateGas, rosettanetConnect_gasPrice as gasPrice, rosettanetConnect_getBalance as getBalance, rosettanetConnect_getBlockByHash as getBlockByHash, rosettanetConnect_getBlockByNumber as getBlockByNumber, rosettanetConnect_getBlockNumber as getBlockNumber, rosettanetConnect_getBlockTransactionCountByHash as getBlockTransactionCountByHash, rosettanetConnect_getBlockTransactionCountByNumber as getBlockTransactionCountByNumber, rosettanetConnect_getCode as getCode, rosettanetConnect_getPermissions as getPermissions, rosettanetConnect_getTransactionByHash as getTransactionByHash, rosettanetConnect_getTransactionCount as getTransactionCount, rosettanetConnect_getTransactionHashByBlockHashAndIndex as getTransactionHashByBlockHashAndIndex, rosettanetConnect_getTransactionHashByBlockNumberAndIndex as getTransactionHashByBlockNumberAndIndex, rosettanetConnect_getTransactionReceipt as getTransactionReceipt, rosettanetConnect_personalSign as personalSign, rosettanetConnect_requestAccounts as requestAccounts, rosettanetConnect_requestChainId as requestChainId, rosettanetConnect_sendTransaction as sendTransaction, rosettanetConnect_signMessage as signMessage, rosettanetConnect_switchRosettanetChain as switchRosettanetChain, rosettanetConnect_syncing as syncing, rosettanetConnect_watchAsset as watchAsset };
 }
 
 declare enum RosettanetChainId {
@@ -221,10 +285,4 @@ declare class RosettanetAccount extends Account implements AccountInterface {
     static connectSilent(provider: ProviderInterface, walletProvider: EthereumWindowObject, cairoVersion?: CairoVersion): Promise<RosettanetAccount>;
 }
 
-type index_RosettanetAccount = RosettanetAccount;
-declare const index_RosettanetAccount: typeof RosettanetAccount;
-declare namespace index {
-  export { index_RosettanetAccount as RosettanetAccount };
-}
-
-export { index as rosettanetWallet };
+export { RosettanetAccount, rosettanetConnect as rosettanetWallet };

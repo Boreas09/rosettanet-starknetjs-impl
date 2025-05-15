@@ -5,16 +5,36 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// src/RosettanetWallet/index.ts
-var RosettanetWallet_exports = {};
-__export(RosettanetWallet_exports, {
-  RosettanetAccount: () => RosettanetAccount
-});
-
-// src/RosettanetWallet/rosettanetAccount.ts
-import { prepareMulticallCalldata } from "rosettanet";
-
 // src/RosettanetWallet/rosettanetConnect.ts
+var rosettanetConnect_exports = {};
+__export(rosettanetConnect_exports, {
+  accounts: () => accounts,
+  call: () => call,
+  clientVersion: () => clientVersion,
+  estimateGas: () => estimateGas,
+  gasPrice: () => gasPrice,
+  getBalance: () => getBalance,
+  getBlockByHash: () => getBlockByHash,
+  getBlockByNumber: () => getBlockByNumber,
+  getBlockNumber: () => getBlockNumber,
+  getBlockTransactionCountByHash: () => getBlockTransactionCountByHash,
+  getBlockTransactionCountByNumber: () => getBlockTransactionCountByNumber,
+  getCode: () => getCode,
+  getPermissions: () => getPermissions,
+  getTransactionByHash: () => getTransactionByHash,
+  getTransactionCount: () => getTransactionCount,
+  getTransactionHashByBlockHashAndIndex: () => getTransactionHashByBlockHashAndIndex,
+  getTransactionHashByBlockNumberAndIndex: () => getTransactionHashByBlockNumberAndIndex,
+  getTransactionReceipt: () => getTransactionReceipt,
+  personalSign: () => personalSign,
+  requestAccounts: () => requestAccounts,
+  requestChainId: () => requestChainId,
+  sendTransaction: () => sendTransaction,
+  signMessage: () => signMessage,
+  switchRosettanetChain: () => switchRosettanetChain,
+  syncing: () => syncing,
+  watchAsset: () => watchAsset
+});
 function requestAccounts(ewo) {
   return ewo.request({ method: "eth_requestAccounts" });
 }
@@ -50,6 +70,10 @@ function accounts(ewo) {
   return ewo.request({ method: "eth_accounts" });
 }
 __name(accounts, "accounts");
+function clientVersion(ewo) {
+  return ewo.request({ method: "web3_clientVersion" });
+}
+__name(clientVersion, "clientVersion");
 function getBlockNumber(ewo) {
   return ewo.request({ method: "eth_blockNumber" });
 }
@@ -116,12 +140,17 @@ function getTransactionReceipt(ewo, txHash) {
   return ewo.request({ method: "eth_getTransactionReceipt", params: [txHash] });
 }
 __name(getTransactionReceipt, "getTransactionReceipt");
+function syncing(ewo) {
+  return ewo.request({ method: "eth_syncing" });
+}
+__name(syncing, "syncing");
 function signMessage(ewo, message, address) {
   return ewo.request({ method: "eth_signTypedData_v4", params: [address, message] });
 }
 __name(signMessage, "signMessage");
 
 // src/RosettanetWallet/rosettanetAccount.ts
+import { prepareMulticallCalldata } from "rosettanet";
 import {
   cairo,
   encode,
@@ -365,6 +394,7 @@ var RosettanetAccount = class _RosettanetAccount extends Account {
   }
 };
 export {
-  RosettanetWallet_exports as rosettanetWallet
+  RosettanetAccount,
+  rosettanetConnect_exports as rosettanetWallet
 };
 //# sourceMappingURL=index.mjs.map
