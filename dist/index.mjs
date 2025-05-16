@@ -1,30 +1,9 @@
-"use strict";
 var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// src/index.ts
-var index_exports = {};
-__export(index_exports, {
-  RosettanetAccount: () => RosettanetAccount,
-  rosettanetWallet: () => rosettanetConnect_exports
-});
-module.exports = __toCommonJS(index_exports);
 
 // src/RosettanetWallet/rosettanetConnect.ts
 var rosettanetConnect_exports = {};
@@ -171,9 +150,14 @@ function signMessage(ewo, message, address) {
 __name(signMessage, "signMessage");
 
 // src/RosettanetWallet/rosettanetAccount.ts
-var import_rosettanet = require("rosettanet");
-var import_starknet = require("starknet");
-var RosettanetAccount = class _RosettanetAccount extends import_starknet.Account {
+import { prepareMulticallCalldata } from "rosettanet";
+import {
+  cairo,
+  encode,
+  num,
+  Account
+} from "starknet";
+var RosettanetAccount = class _RosettanetAccount extends Account {
   static {
     __name(this, "RosettanetAccount");
   }
@@ -363,19 +347,19 @@ var RosettanetAccount = class _RosettanetAccount extends import_starknet.Account
     if (!evmSignedHash || evmSignedHash.length !== 132 && evmSignedHash.length !== 130) {
       throw new Error("Ethereum Signature error");
     }
-    const signedHashWithoutPrefix = import_starknet.encode.removeHexPrefix(evmSignedHash);
-    const r = import_starknet.cairo.uint256(import_starknet.encode.addHexPrefix(signedHashWithoutPrefix.slice(0, 63)));
-    const s = import_starknet.cairo.uint256(import_starknet.encode.addHexPrefix(signedHashWithoutPrefix.slice(64, 127)));
-    const v = import_starknet.encode.addHexPrefix(signedHashWithoutPrefix.slice(128, 130));
+    const signedHashWithoutPrefix = encode.removeHexPrefix(evmSignedHash);
+    const r = cairo.uint256(encode.addHexPrefix(signedHashWithoutPrefix.slice(0, 63)));
+    const s = cairo.uint256(encode.addHexPrefix(signedHashWithoutPrefix.slice(64, 127)));
+    const v = encode.addHexPrefix(signedHashWithoutPrefix.slice(128, 130));
     if (v !== "0x1c" && v !== "0x1b") {
       throw new Error("Invalid Ethereum Signature");
     }
     return [
-      import_starknet.num.toHex(r.low),
-      import_starknet.num.toHex(r.high),
-      import_starknet.num.toHex(s.low),
-      import_starknet.num.toHex(s.high),
-      import_starknet.num.toHex(v)
+      num.toHex(r.low),
+      num.toHex(r.high),
+      num.toHex(s.low),
+      num.toHex(s.high),
+      num.toHex(v)
     ];
   }
   async execute(calls) {
@@ -390,7 +374,7 @@ var RosettanetAccount = class _RosettanetAccount extends import_starknet.Account
     const params = {
       calls: txCalls
     };
-    const txData = (0, import_rosettanet.prepareMulticallCalldata)(params.calls);
+    const txData = prepareMulticallCalldata(params.calls);
     const txObject = {
       from: this.address,
       to: this.address,
@@ -409,9 +393,8 @@ var RosettanetAccount = class _RosettanetAccount extends import_starknet.Account
     return new _RosettanetAccount(provider, walletProvider, cairoVersion, accountAddress);
   }
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
+export {
   RosettanetAccount,
-  rosettanetWallet
-});
-//# sourceMappingURL=index.cjs.map
+  rosettanetConnect_exports as rosettanetWallet
+};
+//# sourceMappingURL=index.mjs.map
