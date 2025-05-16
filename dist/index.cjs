@@ -380,11 +380,10 @@ var RosettanetAccount = class _RosettanetAccount extends import_starknet.Account
   }
   async execute(calls) {
     const txCalls = [].concat(calls).map((it) => {
-      const { contractAddress, entrypoint, calldata } = it;
       return {
-        contract_address: contractAddress,
-        entry_point: entrypoint,
-        calldata
+        contract_address: it[0],
+        entry_point: it[1],
+        calldata: it[2]
       };
     });
     const params = {
@@ -393,7 +392,7 @@ var RosettanetAccount = class _RosettanetAccount extends import_starknet.Account
     const txData = (0, import_rosettanet.prepareMulticallCalldata)(params.calls);
     const txObject = {
       from: this.address,
-      to: this.address,
+      to: "0x0000000000000000000000004645415455524553",
       data: txData,
       value: "0x0"
     };

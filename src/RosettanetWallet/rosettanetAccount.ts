@@ -304,11 +304,10 @@ export class RosettanetAccount extends Account implements AccountInterface {
   override async execute(calls: AllowArray<Call>): Promise<{ transaction_hash: string }> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const txCalls = [].concat(calls as any).map((it) => {
-      const { contractAddress, entrypoint, calldata } = it;
       return {
-        contract_address: contractAddress,
-        entry_point: entrypoint,
-        calldata,
+        contract_address: it[0],
+        entry_point: it[1],
+        calldata: it[2],
       };
     });
 
@@ -320,7 +319,7 @@ export class RosettanetAccount extends Account implements AccountInterface {
 
     const txObject = {
       from: this.address,
-      to: this.address,
+      to: '0x0000000000000000000000004645415455524553',
       data: txData,
       value: '0x0',
     };
