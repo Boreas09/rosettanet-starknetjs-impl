@@ -41,7 +41,7 @@ import {
   AccountInterface,
   hash,
   Calldata,
-  RawArgs
+  RawArgs,
 } from 'starknet';
 import { BLOCK_HASH, BLOCK_NUMBER, BLOCK_TAG, TX_REQUEST, TXN_HASH } from '../types/index';
 import { RosettanetChainId } from './constants';
@@ -307,11 +307,17 @@ export class RosettanetAccount extends Account implements AccountInterface {
     if (Array.isArray(calls) === false) {
       throw new Error('Invalid calls parameter. Expected an array of calls.');
     }
-    const arrayCalls: [string, string, Calldata | RawArgs | undefined][] = calls.map((item) => [item.contractAddress, item.entrypoint, item.calldata]);
+    const arrayCalls: [string, string, Calldata | RawArgs | undefined][] = calls.map((item) => [
+      item.contractAddress,
+      item.entrypoint,
+      item.calldata,
+    ]);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const txCalls = [].concat(arrayCalls as any).map((it) => {
       const entryPointValue = it[1] as string;
-      const entryPoint = entryPointValue.startsWith("0x") ? entryPointValue : hash.getSelectorFromName(entryPointValue);
+      const entryPoint = entryPointValue.startsWith('0x')
+        ? entryPointValue
+        : hash.getSelectorFromName(entryPointValue);
 
       return {
         contract_address: it[0],
