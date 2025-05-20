@@ -366,17 +366,12 @@ var RosettanetAccount = class _RosettanetAccount extends Account {
     if (Array.isArray(calls) === false) {
       throw new Error("Invalid calls parameter. Expected an array of calls.");
     }
-    const arrayCalls = calls.map((item) => [
-      item.contractAddress,
-      item.entrypoint,
-      item.calldata
-    ]);
+    const arrayCalls = calls.map((item) => [item.contractAddress, item.entrypoint, item.calldata]);
     const txCalls = [].concat(arrayCalls).map((it) => {
-      const { contractAddress, entrypoint, calldata } = it;
       return {
-        contract_address: contractAddress,
-        entry_point: entrypoint,
-        calldata
+        contract_address: it[0],
+        entry_point: it[1],
+        calldata: it[2]
       };
     });
     const params = {

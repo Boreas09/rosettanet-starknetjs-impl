@@ -30,7 +30,6 @@ import {
 import {
   CairoVersion,
   ProviderOptions,
-  AllowArray,
   Call,
   Uint256,
   ArraySignatureType,
@@ -308,11 +307,10 @@ export class RosettanetAccount extends Account implements AccountInterface {
     const arrayCalls = calls.map((item) => [item.contractAddress, item.entrypoint, item.calldata]);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const txCalls = [].concat(arrayCalls as any).map((it) => {
-      const { contractAddress, entrypoint, calldata } = it;
       return {
-        contract_address: contractAddress,
-        entry_point: entrypoint,
-        calldata,
+        contract_address: it[0],
+        entry_point: it[1],
+        calldata: it[2],
       };
     });
 
