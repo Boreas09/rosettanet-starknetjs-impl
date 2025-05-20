@@ -301,13 +301,22 @@ export class RosettanetAccount extends Account implements AccountInterface {
     ] as ArraySignatureType;
   }
 
-  override async execute(calls: AllowArray<Call>): Promise<{ transaction_hash: string }> {
+  override async execute(calls: Call[]): Promise<{ transaction_hash: string }> {
+    if (Array.isArray(calls) === false) {
+      throw new Error('Invalid calls parameter. Expected an array of calls.');
+    }
+    const arrayCalls = calls.map(item => [
+      item.contractAddress,
+      item.entrypoint,
+      item.calldata,
+    ]);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const txCalls = [].concat(calls as any).map((it) => {
+    const txCalls = [].concat(arrayCalls as any).map((it) => {
+      const { contractAddress, entrypoint, calldata } = it;
       return {
-        contract_address: it[0],
-        entry_point: it[1],
-        calldata: it[2],
+        contract_address: contractAddress,
+        entry_point: entrypoint,
+        calldata,
       };
     });
 

@@ -1,5 +1,5 @@
 import { RequestFn, WalletEventListener, WatchAssetParameters, ChainId, Permission, TypedData } from '@starknet-io/types-js';
-import { Account, AccountInterface, ProviderOptions, ProviderInterface, CairoVersion, ArraySignatureType, AllowArray, Call } from 'starknet';
+import { Account, AccountInterface, ProviderOptions, ProviderInterface, CairoVersion, ArraySignatureType, Call } from 'starknet';
 
 /**
  * PRIMITIVES
@@ -278,7 +278,7 @@ declare class RosettanetAccount extends Account implements AccountInterface {
      * @returns Signature as strings.
      */
     signMessage(message: TypedData): Promise<ArraySignatureType>;
-    execute(calls: AllowArray<Call>): Promise<{
+    execute(calls: Call[]): Promise<{
         transaction_hash: string;
     }>;
     static connect(provider: ProviderInterface, walletProvider: EthereumWindowObject, cairoVersion?: CairoVersion): Promise<RosettanetAccount>;
