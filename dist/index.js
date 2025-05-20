@@ -20438,9 +20438,11 @@ ${JSON.stringify(data, null, 2)}`;
       }
       const arrayCalls = calls.map((item) => [item.contractAddress, item.entrypoint, item.calldata]);
       const txCalls = [].concat(arrayCalls).map((it) => {
+        const entryPointValue = it[1];
+        const entryPoint = entryPointValue.startsWith("0x") ? entryPointValue : hash_exports.getSelectorFromName(entryPointValue);
         return {
           contract_address: it[0],
-          entry_point: it[1],
+          entry_point: entryPoint,
           calldata: it[2]
         };
       });
