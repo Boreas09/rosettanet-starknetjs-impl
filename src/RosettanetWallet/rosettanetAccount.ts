@@ -306,7 +306,9 @@ export class RosettanetAccount extends Account implements AccountInterface {
 
   override async execute(calls: Call[]): Promise<{ transaction_hash: string }> {
     if (validateCallParams(calls) === false) {
-      throw new Error('Invalid call parameter. Expected an array of objects. Rosettanet only supports multicall.');
+      throw new Error(
+        'Invalid call parameter. Expected an array of objects. Rosettanet only supports multicall.'
+      );
     }
     const arrayCalls: [string, string, Calldata | RawArgs | undefined][] = calls.map((item) => [
       item.contractAddress,
