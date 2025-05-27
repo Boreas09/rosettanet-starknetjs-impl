@@ -4,6 +4,7 @@ interface CallObject {
   calldata: string[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const validateCallParams = (value: any): value is CallObject[] => {
   return (
     Array.isArray(value) &&

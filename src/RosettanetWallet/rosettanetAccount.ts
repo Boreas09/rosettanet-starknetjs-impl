@@ -60,7 +60,6 @@ export class RosettanetAccount extends Account implements AccountInterface {
     this.walletProvider = walletProvider;
 
     if (!address.length) {
-      // eslint-disable-next-line no-console
       console.warn(
         '@deprecated Use static method WalletAccount.connect or WalletAccount.connectSilent instead. Constructor {@link WalletAccount.(format:2)}.'
       );
