@@ -173,6 +173,15 @@ __name(signMessage, "signMessage");
 // src/RosettanetWallet/rosettanetAccount.ts
 var import_rosettanet = require("rosettanet");
 var import_starknet = require("starknet");
+
+// src/utils/validateCallParams.ts
+var validateCallParams = /* @__PURE__ */ __name((value) => {
+  return Array.isArray(value) && value.every(
+    (item) => typeof item === "object" && item !== null && !Array.isArray(item) && "contractAddress" in item && "entrypoint" in item && "calldata" in item
+  );
+}, "validateCallParams");
+
+// src/RosettanetWallet/rosettanetAccount.ts
 var RosettanetAccount = class _RosettanetAccount extends import_starknet.Account {
   static {
     __name(this, "RosettanetAccount");
@@ -379,10 +388,14 @@ var RosettanetAccount = class _RosettanetAccount extends import_starknet.Account
     ];
   }
   async execute(calls) {
-    if (Array.isArray(calls) === false) {
-      throw new Error("Invalid calls parameter. Expected an array of calls.");
+    if (validateCallParams(calls) === false) {
+      throw new Error("Invalid call parameter. Expected an array of objects. Rosettanet only supports multicall.");
     }
-    const arrayCalls = calls.map((item) => [item.contractAddress, item.entrypoint, item.calldata]);
+    const arrayCalls = calls.map((item) => [
+      item.contractAddress,
+      item.entrypoint,
+      item.calldata
+    ]);
     const txCalls = [].concat(arrayCalls).map((it) => {
       const entryPointValue = it[1];
       const entryPoint = entryPointValue.startsWith("0x") ? entryPointValue : import_starknet.hash.getSelectorFromName(entryPointValue);

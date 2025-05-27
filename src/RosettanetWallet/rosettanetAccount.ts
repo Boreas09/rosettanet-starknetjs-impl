@@ -45,6 +45,7 @@ import {
 } from 'starknet';
 import { BLOCK_HASH, BLOCK_NUMBER, BLOCK_TAG, TX_REQUEST, TXN_HASH } from '../types/index';
 import { RosettanetChainId } from './constants';
+import { validateCallParams } from '../utils/validateCallParams';
 
 export class RosettanetAccount extends Account implements AccountInterface {
   public walletProvider: EthereumWindowObject;
@@ -304,8 +305,8 @@ export class RosettanetAccount extends Account implements AccountInterface {
   }
 
   override async execute(calls: Call[]): Promise<{ transaction_hash: string }> {
-    if (Array.isArray(calls) === false) {
-      throw new Error('Invalid calls parameter. Expected an array of calls.');
+    if (validateCallParams(calls) === false) {
+      throw new Error('Invalid call parameter. Expected an array of objects. Rosettanet only supports multicall.');
     }
     const arrayCalls: [string, string, Calldata | RawArgs | undefined][] = calls.map((item) => [
       item.contractAddress,
